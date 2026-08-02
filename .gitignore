@@ -1,0 +1,14 @@
+# environment
+.venv/
+
+# document build files
+.quarto/
+**/*.quarto_ipynb
+_extensions/
+_acuity/
+build/
+index_files/
+site_libs/
+index.typ
+
+/.quarto/

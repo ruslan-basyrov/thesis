@@ -1,0 +1,19 @@
+website:
+  navbar:
+    tools:
+      - icon: github
+        href: https://github.com/ruslan-basyrov/thesis
+    left:
+      - text: "Home"
+        href: https://ruslanbasyrov.com
+
+project:
+  type: acuity
+  render:
+    - "index.qmd"
+
+format:
+  acuity-html: default
+    
+  acuity-typst:
+    keep-typ: true
