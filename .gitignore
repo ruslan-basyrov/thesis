@@ -1,5 +1,13 @@
 # environment
 .venv/
+__pycache__/
+
+# dagster run state
+.dagster/
+.tmp*
+
+# register microdata
+*.dta
 
 # document build files
 .quarto/

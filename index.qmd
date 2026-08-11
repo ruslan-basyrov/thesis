@@ -2,3 +2,19 @@
 title: "Educational hypogamy and the local marriage squeeze among Austrian first-birth couples, 1990–2007"
 author: "Ruslan Basyrov"
 ---
+
+```{python}
+#| echo: false
+import pandas as pd
+
+from pipeline.filepaths import COUPLES
+
+df = pd.read_parquet(COUPLES)
+ed = df.dropna(subset=["hypo"])
+```
+
+The register file holds `{python} f"{len(df):,}"` first-birth couples, born
+between `{python} str(df.year.min())` and `{python} str(df.year.max())`. Both
+partners' education is recorded for `{python} f"{len(ed):,}"` of them, and in
+`{python} f"{ed.hypo.mean():.1%}"` of those the mother is the more educated
+partner.
