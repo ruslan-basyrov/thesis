@@ -1,8 +1,9 @@
 website:
+  favicon: favicon.svg
   navbar:
     tools:
       - icon: github
-        href: https://github.com/ruslan-basyrov/thesis
+        href: https://github.com/ruslan-basyrov/acuity
     left:
       - text: "Home"
         href: https://ruslanbasyrov.com
