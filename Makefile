@@ -1,4 +1,4 @@
-.PHONY: dev couples extension render preview fclean
+.PHONY: dev extension render preview fclean
 
 DOCUMENT = index.qmd
 
@@ -14,14 +14,11 @@ $(DAGSTER_HOME):
 dev: | $(DAGSTER_HOME)
 	uv run dagster dev -m pipeline.definitions
 
-couples: | $(DAGSTER_HOME)
-	$(MATERIALIZE) couples
-
 extension: | $(DAGSTER_HOME)
 	$(MATERIALIZE) extension
 
 render: | $(DAGSTER_HOME)
-	$(MATERIALIZE) extension,document
+	$(MATERIALIZE) extension,ess_clean,gradient,figures,document
 
 preview: extension
 	$(QUARTO) preview $(DOCUMENT)

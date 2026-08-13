@@ -1,6 +1,6 @@
 import subprocess
 
-from pipeline.filepaths import DOCUMENT, QUARTO_YML, ROOT
+from pipeline.filepaths import PRERENDER, QUARTO_YML, ROOT
 
 
 def quarto(*args):
@@ -18,5 +18,9 @@ def install_extension():
         hidden.rename(QUARTO_YML)
 
 
+def prerender_figures():
+    quarto("run", PRERENDER)
+
+
 def render_document():
-    quarto("render", DOCUMENT.name)
+    quarto("render")
