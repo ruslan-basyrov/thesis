@@ -6,11 +6,14 @@ bibliography: bibliography.bib
 
 # Introduction
 
-## Which parent has more schooling
+## The reversal of educational difference
 
 Women born just after the war were less likely than men of the same cohort to hold a degree. For every cohort since, the gap has narrowed and then turned the other way, in most European countries and in Austria too.
 
 ::: {#fig-tertiary-difference}
 {{< include build/figures/tertiary_difference.qmd >}}
-The female educational advantage by the respondent's own birth cohort, in 30 European countries from the European Social Survey: the share of women holding a degree minus the share of men. The measure and most of the design follow Erát [@erat2021], but the data include more countries and survey waves.
+**The female educational advantage by cohort.**\
+The measure and most of the design follow Erát[@erat2021], but the data include more countries (30) and survey rounds.\
+*Source:* own calculations based on the rounds 1-11 of the European Social Survey[@europeansocialsurveyeuropeanresearchinfrastructureesseric2023; @europeansocialsurveyeuropeanresearchinfrastructureesseric2012; @europeansocialsurveyeuropeanresearchinfrastructureesseric2018; @europeansocialsurveyeuropeanresearchinfrastructureesseric2023a; @europeansocialsurveyeuropeanresearchinfrastructureesseric2025; @europeansocialsurveyeuropeanresearchinfrastructureesseric2025a; @europeansocialsurveyeuropeanresearchinfrastructureesseric2023b; @europeansocialsurveyeuropeanresearchinfrastructureesseric2023c; @europeansocialsurveyeuropeanresearchinfrastructureesseric2026; @europeansocialsurveyeuropeanresearchinfrastructureesseric2025b; @europeansocialsurveyeuropeanresearchinfrastructureesseric2026a].
+
 :::
