@@ -4,7 +4,9 @@ DOCUMENT = index.qmd
 
 QUARTO = uv run quarto
 
-WORDCOUNT = _extensions/ruslan-basyrov/acuity/wordcount.lua
+EXTENSION = _extensions/ruslan-basyrov
+
+WORDCOUNT = $(EXTENSION)/acuity/wordcount.lua
 
 WORDS_MIN ?= 20000
 WORDS_MAX ?= 30000
@@ -23,15 +25,18 @@ dev: | $(DAGSTER_HOME)
 extension: | $(DAGSTER_HOME)
 	$(MATERIALIZE) extension
 
+$(EXTENSION): | $(DAGSTER_HOME)
+	$(MATERIALIZE) extension
+
 render: | $(DAGSTER_HOME)
 	$(MATERIALIZE) extension,ess_clean,tertiary_difference,figures,document
 
-preview: extension
+preview: | $(EXTENSION)
 	$(QUARTO) preview $(DOCUMENT)
 
 # Plain `html`, not `acuity-html`: the Acuity filters move captions and
 # references into the margin, which would count them as margin text.
-word_count: extension
+word_count: | $(EXTENSION)
 	@mkdir -p $(dir $(WORDS_FILE))
 	@$(QUARTO) render $(DOCUMENT) --to html --quiet \
 		-M "filters:[$(WORDCOUNT)]" \
