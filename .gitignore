@@ -18,5 +18,9 @@ build/
 index_files/
 site_libs/
 index.typ
+data/
 
+**.pdf
 /.quarto/
+
+/.luarc.json
