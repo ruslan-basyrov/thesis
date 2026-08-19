@@ -3,6 +3,7 @@ title: "Educational hypogamy and the local marriage squeeze among Austrian first
 author: "Ruslan Basyrov"
 bibliography: bibliography.bib
 sidenote-citations: false
+number-sections: true
 ---
 
 # Introduction
@@ -28,7 +29,18 @@ The change in educational composition is accompanied by the shifts in the share 
 
 ::: {#fig-mating-terms .column-margin}
 {{< include build/figures/mating_terms.qmd >}}
-**The correspondence of hypo-, homo- and hypergamy with disassortative and assortative mating.**\
+**The correspondence of the terms: hypo-, homo- and hypergamy with disassortative and assortative mating.**\
 The height of the curve is the distance in education between partners, and thus hypogamy and hypergamy lie on the disassortative side, opposite to homogamy on the assortative one.
 :::
 
+
+How couples are operationalized affects the measurements of educational composition. In this thesis, the couples are defined narrowly — parents whose first children^[Per Austrian registry of births. More on the data used in the [Data chapter](#sec-data).] were born in Austria within the period of 1990-2007. Therefore, the research is scoped accordingly — the results are not to be generalized to the total population. Nevertheless, for illustrative purposes and to embed the analysis in the broader context, the thesis is not limited to the discussion of the narrow definition of couples and broader trends are considered.
+
+Assortative mating describes outcomes, not what drives them. To what extent does the rise of hypogamy follow mechanically from the increase in the number of educated women, and to what extent from the changed partner preferences? In other words, how to distinguish the effect of the changes in the *margins* of the table from the changes in the *association* between partners' characteristics? @fig-couples-shares is two such tables for the data used in the thesis. The education range runs from at most compulsory schooling through apprenticeship and Matura^[Latin word used as a name for the secondary school exit exam. The noun is capitalized as in German and left untranslated to indicate the specifics of Austrian educational system.] to a tertiary degree. The most evident change is the reduction in the number of couples where both partners had attained "apprenticeship" as the highest degree. Overall, the values have shifted towards higher education for both sexes. 
+
+::: {#fig-couples-shares .wideblock}
+{{< include build/figures/couples_shares.qmd >}}
+**The counts of couples by educational composition in 1990 and 2007.**\
+The total count changed from 1,472 couples in 1997 to 1,605 in 2007.\
+*Source:* own calculations based on the Austrian register data on first births.
+:::
