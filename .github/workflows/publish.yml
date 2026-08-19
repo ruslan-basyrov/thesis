@@ -1,9 +1,7 @@
 on:
   workflow_dispatch:
-  push:
-    branches: main
 
-name: Quarto Publish
+name: Publish
 
 # Required permissions for GitHub Pages direct deployment
 permissions:
@@ -17,27 +15,28 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-deploy:
+  deploy:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Set up uv
-        uses: astral-sh/setup-uv@v5
-
-      # Renders figure SVGs with Deno, then renders Quarto (both fetched via uv)
-      - name: Build and Render
-        run: make
+      # `make publish` renders the site and uploads it to the release, so the
+      # data it is built from never reaches the runner.
+      - name: Fetch the built site
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download site --repo ${{ github.repository }} --pattern site.tar.gz
+          mkdir _acuity
+          tar -xzf site.tar.gz -C _acuity
 
       # Packages the _acuity output directory and uploads it to GitHub infrastructure
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
           path: _acuity
+          retention-days: 1
 
       # Deploys the artifact to your live GitHub Pages URL
       - name: Deploy to GitHub Pages

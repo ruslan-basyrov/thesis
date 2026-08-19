@@ -1,4 +1,4 @@
-.PHONY: dev extension render preview word_count fclean
+.PHONY: dev extension render preview word_count publish fclean
 
 DOCUMENT = index.qmd
 
@@ -11,6 +11,10 @@ WORDCOUNT = $(EXTENSION)/acuity/wordcount.lua
 WORDS_MIN ?= 20000
 WORDS_MAX ?= 30000
 WORDS_FILE ?= build/wordcount.txt
+
+SITE = _acuity
+SITE_TAR = build/site.tar.gz
+RELEASE = site
 
 export DAGSTER_HOME := $(CURDIR)/.dagster
 
@@ -45,6 +49,18 @@ word_count: | $(EXTENSION)
 		-M "wordcount-report:$(WORDS_FILE)" \
 		-o wordcount.html
 	@cat $(WORDS_FILE)
+
+# The site is rendered here and handed to the workflow that deploys it, so
+# the data it is built from stays off GitHub. One release asset, replaced
+# every time.
+publish: render
+	@mkdir -p $(dir $(SITE_TAR))
+	tar -czf $(SITE_TAR) -C $(SITE) .
+	@gh release view $(RELEASE) >/dev/null 2>&1 || \
+		gh release create $(RELEASE) --title "Built site" \
+			--notes "The rendered site, replaced by every publish."
+	gh release upload $(RELEASE) $(SITE_TAR) --clobber
+	gh workflow run publish.yml
 
 BUILD_ARTIFACTS = _acuity _extensions .quarto .venv build index_files \
 	site_libs $(DOCUMENT:.qmd=.typ)
