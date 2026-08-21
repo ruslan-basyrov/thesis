@@ -33,7 +33,7 @@ $(EXTENSION): | $(DAGSTER_HOME)
 	$(MATERIALIZE) extension
 
 render: | $(DAGSTER_HOME)
-	$(MATERIALIZE) extension,ess_clean,tertiary_difference,figures,document
+	$(MATERIALIZE) extension,ess_clean,tertiary_difference,survey_clean,couples_shares,decomposition,figures,document
 
 preview: | $(EXTENSION)
 	$(QUARTO) preview $(DOCUMENT)

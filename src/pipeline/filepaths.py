@@ -13,6 +13,8 @@ ESS_CLEAN = BUILD / "ess_clean.parquet"
 
 # the figures read their data as text, from quarto's deno
 TERTIARY_DIFFERENCE = BUILD / "tertiary_difference.json"
+COUPLES_SHARES = BUILD / "couples_shares.json"
+DECOMPOSITION = BUILD / "decomposition.json"
 FIGURES = BUILD / "figures"
 
 DOCUMENT = ROOT / "index.qmd"
