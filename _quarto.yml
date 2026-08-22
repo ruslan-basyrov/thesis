@@ -3,7 +3,7 @@ website:
   navbar:
     tools:
       - icon: github
-        href: https://github.com/ruslan-basyrov/acuity
+        href: https://github.com/ruslan-basyrov/thesis
     left:
       - text: "Home"
         href: https://ruslanbasyrov.com
