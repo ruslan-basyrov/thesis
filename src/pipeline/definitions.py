@@ -2,7 +2,7 @@ import dagster as dg
 import pandas as pd
 
 from pipeline.clean import clean_ess, clean_survey
-from pipeline import cohorts, couples
+from pipeline import cohorts, couples, network
 from pipeline.document import install_extension, prerender_figures, render_document
 from pipeline.filepaths import (
     DOCUMENT,
@@ -12,9 +12,11 @@ from pipeline.filepaths import (
     FIGURES,
     COUPLES_SHARES,
     DECOMPOSITION,
+    REGION_PBF,
     TERTIARY_DIFFERENCE,
     SURVEY_CLEAN,
     SURVEY_DTA,
+    VALHALLA_TILES,
 )
 
 survey = dg.AssetSpec(
@@ -119,6 +121,50 @@ def decomposition() -> dg.MaterializeResult:
     )
 
 
+@dg.asset(group_name="network")
+def geography() -> dg.MaterializeResult:
+    """Statistik Austria municipality polygons and population-weighted
+    centroids, Gebietsstand 2022-01-01, with Vienna as its 23 districts."""
+    df = network.build_geography()
+    return dg.MaterializeResult(metadata={"municipalities": len(df)})
+
+
+@dg.asset(deps=[geography], group_name="network")
+def region_osm() -> dg.MaterializeResult:
+    """The ten Geofabrik 2014-01-01 extracts, clipped to 100 km around
+    Austria with ways kept whole, merged into one region PBF."""
+    network.build_region()
+    return dg.MaterializeResult(
+        metadata={"size_mb": round(REGION_PBF.stat().st_size / 1e6)}
+    )
+
+
+@dg.asset(deps=[region_osm], group_name="network")
+def routing_graph() -> dg.MaterializeResult:
+    """The Valhalla tile extract over the region, the graph every route,
+    isochrone and duration is read from."""
+    network.build_tiles()
+    return dg.MaterializeResult(
+        metadata={
+            "size_mb": round(VALHALLA_TILES.stat().st_size / 1e6),
+            "vienna_innsbruck_min": round(network.route_minutes(90101, 70101), 1),
+        }
+    )
+
+
+@dg.asset(deps=[routing_graph, geography], group_name="network")
+def isochrone_markets() -> dg.MaterializeResult:
+    """The two showcase mate markets as 20/30-car-minute isochrone GeoJSON:
+    the strongest alpine case and the densest lowland market."""
+    picks = network.build_markets()
+    return dg.MaterializeResult(
+        metadata={
+            label: f"{name}, {within} municipalities within 30 min"
+            for label, (name, within) in picks.items()
+        }
+    )
+
+
 @dg.asset(group_name="document")
 def extension() -> dg.MaterializeResult:
     """The custom quarto extension to render both to PDF and HTML,
@@ -128,7 +174,8 @@ def extension() -> dg.MaterializeResult:
 
 
 @dg.asset(
-    deps=[tertiary_difference, couples_shares, decomposition, extension],
+    deps=[tertiary_difference, couples_shares, decomposition,
+          isochrone_markets, extension],
     group_name="document",
 )
 def figures() -> dg.MaterializeResult:
@@ -157,6 +204,10 @@ defs = dg.Definitions(
             tertiary_difference,
             couples_shares,
             decomposition,
+            geography,
+            region_osm,
+            routing_graph,
+            isochrone_markets,
             extension,
             figures,
             document,

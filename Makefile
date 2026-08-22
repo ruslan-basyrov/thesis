@@ -1,4 +1,4 @@
-.PHONY: dev extension render preview word_count publish fclean
+.PHONY: dev extension render network preview word_count publish fclean
 
 DOCUMENT = index.qmd
 
@@ -34,6 +34,9 @@ $(EXTENSION): | $(DAGSTER_HOME)
 
 render: | $(DAGSTER_HOME)
 	$(MATERIALIZE) extension,ess_clean,tertiary_difference,survey_clean,couples_shares,decomposition,figures,document
+
+network: | $(DAGSTER_HOME)
+	$(MATERIALIZE) geography,region_osm,routing_graph,isochrone_markets
 
 preview: | $(EXTENSION)
 	$(QUARTO) preview $(DOCUMENT)

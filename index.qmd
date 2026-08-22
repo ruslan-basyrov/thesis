@@ -53,3 +53,12 @@ Association can be defined in more than one way. Following [@leesch2025], @fig-d
 Tables along each row share association and tables along each column share margins. The observed tables (same ones as in @fig-couples-shares) occupy the main diagonal, 1990 in the upper left and 2007 in the lower right. Each table shows a share of hypogamous couples in the upper left, which is the sum of the respective highlighted area. Each arrow holds one component fixed while changing the other, and its label indicates the change in the share of hypogamous couples (in percentage points). The path above the main diagonal of the figure adjusts the margins first and then the association. The other path does the reverse, adjusting association first and then the margins.\
 *Source:* own calculations based on the Austrian register data on first births.
 :::
+
+
+::: {#fig-markets .wideblock}
+{{< include build/figures/markets.qmd >}}
+**Two municipalities and their neighbours reachable by car.**\
+Each map is centred on the population-weighted centroid of its municipality. Two shades cover the areas within 20 and 30 minutes by car. Thin lines are municipality borders and thick lines are country borders. The terrain relief is shaded in gray. Only Austrian municipalities are counted.\
+*Source:* own calculations based on the OpenStreetMap road network (2014 snapshot) and Statistik Austria municipality boundaries (as of 2022-01-01).
+:::
+
